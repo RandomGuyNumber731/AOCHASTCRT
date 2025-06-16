@@ -66,8 +66,8 @@ def calc(target=None):
         print(f'{blk} {j:<22}{pb:<14}{ps:<14}{need:<14}{order:<10}{part:<14}\033[0m')
     print('\n\033[90m{:<22}{:<14}{:<14}\033[0m'.format('','cost insta:','cost order:'))
     for i,j in enumerate(items):
-            ci = short(item_buy[j]*amnt)
-            co = short(item_sell[j]*amnt)
+            ci = short(item_buy[j]*amnt*mul[i])
+            co = short(item_sell[j]*amnt*mul[i])
             print(f' {j:<22}{ci:<14}{co:<14}')
     ioocnfmv=['COST','INSTASELL','SELL ORDER']
     ioocnfmva=['',item_sell,item_buy]
