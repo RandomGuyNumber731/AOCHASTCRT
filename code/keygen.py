@@ -115,6 +115,6 @@ def calc(target=None):
             if isinstance(l, (int,float)): amnt=l; calc(tp)
             else: calc(tp)
 
-smol(95,29)
+smol(101,29)
 recall()
 put()
