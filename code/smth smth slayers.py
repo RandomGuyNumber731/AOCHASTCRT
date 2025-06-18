@@ -1,11 +1,6 @@
 import requests, os, math
 
-if os.name == 'nt':
-    kernel32 = ctypes.windll.kernel32
-    handle = kernel32.GetStdHandle(-11)
-    mode = ctypes.c_ulong()                                                                                                                 # bruh imagine using windows like bruh
-    kernel32.GetConsoleMode(handle, ctypes.byref(mode))
-    kernel32.SetConsoleMode(handle, mode.value | 0x0001 | 0x0004)
+# there were some cool well borrowed lines
 
 def cl():
     os.system('cls' if os.name == 'nt' else 'clear')                                                                                        # my fav thingy
