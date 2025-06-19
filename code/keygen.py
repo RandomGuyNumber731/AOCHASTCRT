@@ -28,7 +28,7 @@ def recall():
     cl()
     print('fetching...', flush=True, end='')
     global data
-    data = callhp(True)
+    data = callhp()
 
 def put():
     cl()
