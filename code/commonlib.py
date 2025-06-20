@@ -64,7 +64,7 @@ def callcofl(target=None, IsTest=False):
 
 # QOL/VISUAL
 def short(target=None):
-    i = str(f'{target/1000000000:.2f}')+'B' if abs(target)>=1000000000 else str(f'{target/1000000:.2f}')+'M' if abs(target)>=1000000 else str(f'{target/1000:.2f}')+'k' if abs(target)>=1000 else target
+    i = str(f'{target/1000000000:.2f}')+'B' if abs(target)>=1000000000 else str(f'{target/1000000:.2f}')+'M' if abs(target)>=1000000 else str(f'{target/1000:.2f}')+'k' if abs(target)>=1000 else f'{target:.2f}'
     return i
 
 def long(x=None):
