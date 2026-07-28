@@ -11,7 +11,7 @@ mainsub='{}'
 sub='BEJEWELED_HANDLE'
 subsub='GLACITE_JEWEL'
 
-data=None
+data={}
 tp=None
 amnt=1
 hlfs, hlns='',''

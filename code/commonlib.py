@@ -10,6 +10,16 @@ import requests, os, math, time, json
 
 
 
+# COLORS
+class ESC:
+    clear='\033[0m'
+    red='\033[31m'
+    green='\033[32m'
+    yellow='\033[33m'
+
+    gray='\033[90m'
+
+
 # PRERUN
 root=os.path.dirname(os.path.abspath(__file__))
 where=os.path.join(root,'__test__')
@@ -34,9 +44,58 @@ def check_size():
     out=[i.columns, i.lines]
     return out
 
+# lil note i made for myself cuz i forget stuff sometimes
+#
+#######################################################
+#                                                     #
+#                  !!!-LEGEND-!!!                     #
+#                                                     #
+# [  '- ] - step down       ( master:['slave'] )      #
+# [ [n] ] - list object     ( master:[{},{},{},...] ) #
+#                                                     #
+#######################################################
+# 
+#
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+# 
+# ]=-- hypixel skyblock api bazaar json structure thingy
+#      (respecting the data structure that is returned by the 'callhp()' function)
+#
+# products
+#   '- =item_id=
+#       '- sell_summary[n]
+#       |   '- amount
+#       |   '- pricePerUnit
+#       |   '- orders
+#       :
+#       '- buy_summary[n]
+#       |   '- amount
+#       |   '- pricePerUnit
+#       |   '- orders
+#       :
+#       '- quick_status
+#           '- sellPrice
+#           '- sellVolume
+#           '- sellOrders
+#           |
+#           '- buyPrice
+#           '- buyVolume
+#           '- buyOrders
+#
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+#
+# ]=-- coflnet auction (bin) api json structure thingy
+#      (respecting the data structure that is returned by the 'callcofl(item_id)' function)
+# 
+# [n]  (can sometimes be empty)
+#   '- count
+#   '- startingBid
+#   '- (some other not-so-useful data)
+#
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 
 # API
-def callhp(IsTest=False):
+def callhp(IsTest: bool=False):
     IsThere=os.path.isfile(wherehp)
     i='https://api.hypixel.net/skyblock/bazaar'
     if not IsTest: j=requests.get(i); l=j.json()
@@ -48,7 +107,7 @@ def callhp(IsTest=False):
             with open(wherehp,'w') as file: json.dump(l, file, indent=4)
     return l
 
-def callcofl(target=None, IsTest=False):
+def callcofl(target: str, IsTest: bool=False):
     IsThere=os.path.isfile(wherecofl)
     if target==None: raise Exception('no value provided')                                                                                   # thanks coflnet for existing and making checking auction alot easier
     i=f'https://sky.coflnet.com/api/auctions/tag/{target}/active/bin'
@@ -62,26 +121,39 @@ def callcofl(target=None, IsTest=False):
     return l
 
 
-# QOL/VISUAL
-def short(target=None):
+### QOL/VISUAL
+# NUMBERS
+def short(target: float):
     i = str(f'{target/1000000000:.2f}')+'B' if abs(target)>=1000000000 else str(f'{target/1000000:.2f}')+'M' if abs(target)>=1000000 else str(f'{target/1000:.2f}')+'k' if abs(target)>=1000 else f'{target:.2f}'
     return i
 
-def long(x=None):
+def long(x: int|str):
     try:
         mul=[1000000000,1000000,1000]
         for i,j in enumerate(['b','m','k']):
             if str(x[len(str(x))-1]).lower() == j:
                 x=list(x.replace(',','.'))
-                x.pop(len(x)-1)                         # this was harder than the shortening one
-                x.pop(0)
+                x.pop(len(x)-1)                         # this was harder than the shortening one 
+                x.pop(0)                                # ignore the red things
                 x=float(''.join(x))*mul[i]
                 return x
         return float(x[1:])
     except ValueError: return 1
 
-def smol(col, row):
-    cl()
+def fcut(                                               # cuts a float :D
+            x: float|int,   # value to truncate
+            i: int=2       # to which point
+        ):
+    
+    i=1 if i < 1 else i
+    return float(f'%.{i}f'%(x))
+
+#UTILITY
+def printn(*x):                                         # print with no newline
+    print(*x, end='')
+
+def smol(col: int, row: int):                           # size restrictions
+    cl()                                                # still my fav <3
     lastsize=[]
     ohno='window too small!!'
     uneed='u need {} by {}'.format(col, row)
@@ -100,7 +172,7 @@ def smol(col, row):
         if lastsize!=size:                                                      # probably fixes too much flickering    
             cl()
             print(f'{'\033[32m' if row<=size[1] else ''}{up}\033[0m\n{'\n'*(math.ceil(size[1]/2)-4)}{' '*ohnomid}{ohno}\n{'\033[32m' if col<=size[0] else ''}{hor}\033[0m\n{' '*uneedmid}{uneed}{'\n'*(size[1]-(math.ceil(size[1]/2))-4)}{' '*(mid-len(str(size[1]))//2)}{'\033[32m' if row<=size[1] else ''}{down}\033[0m', end='', flush=True)    # i have a bad habit of making those...
-            time.sleep(0.05); lastsize=size
+            time.sleep(0.2); lastsize=size
     cl()
     print(f'{'\n'*int(size[1]/2)}{' '*int(size[0]/2-5)}well done!!\n')
     time.sleep(0.7)
