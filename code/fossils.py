@@ -113,11 +113,11 @@ for i in total:
             lines.append(f'{' '*(max_id_len+2)};- price: {i['min']:>{max_number_len}} | {i['avg']:<{max_number_len}}'+ESC.clear)                                                                    ;linecount+=1
         
         esc1 = ESC.gray if i['profit_order']['buy'] < 0 else ESC.green if i['id'] == best else ''
-        esc2 = ESC.gray if i['profit_order']['sell'] < 0 else ESC.green if i['id'] == best else ''          # for some reasons its gray on values below 5000 instead of just negative 
-        esc1 = ESC.gray if i['profit_insta']['buy'] < 0 else ESC.green if i['id'] == best else ''
-        esc2 = ESC.gray if i['profit_insta']['sell'] < 0 else ESC.green if i['id'] == best else ''
+        esc2 = ESC.gray if i['profit_order']['sell'] < 0 else ESC.green if i['id'] == best else ''
+        esc3 = ESC.gray if i['profit_insta']['buy'] < 0 else ESC.green if i['id'] == best else ''           # u know the gist
+        esc4 = ESC.gray if i['profit_insta']['sell'] < 0 else ESC.green if i['id'] == best else ''
         lines.append(f'{' '*(max_id_len-7)}{'profits -+- order: '}{esc1}{i['profit_order']['buy']:>{max_number_len}}{ESC.clear} | {esc2}{i['profit_order']['sell']:<{max_number_len}}'+ESC.clear)   ;linecount+=1
-        lines.append(f'{' '*(max_id_len+1)}{' `- insta: '}{esc1}{i['profit_insta']['buy']:>{max_number_len}}{ESC.clear} | {esc2}{i['profit_insta']['sell']:<{max_number_len}}'+ESC.clear)           ;linecount+=1
+        lines.append(f'{' '*(max_id_len+1)}{' `- insta: '}{esc3}{i['profit_insta']['buy']:>{max_number_len}}{ESC.clear} | {esc4}{i['profit_insta']['sell']:<{max_number_len}}'+ESC.clear)           ;linecount+=1
     else:
         if rbool: linecount=0; rbool=False
                                                         # i swear to god this shit gets crazier every time like what the actual fuck is this??????
@@ -133,10 +133,10 @@ for i in total:
         
         esc1 = ESC.gray if i['profit_order']['buy'] < 0 else ESC.green if i['id'] == best else ''
         esc2 = ESC.gray if i['profit_order']['sell'] < 0 else ESC.green if i['id'] == best else ''
-        esc1 = ESC.gray if i['profit_insta']['buy'] < 0 else ESC.green if i['id'] == best else ''
-        esc2 = ESC.gray if i['profit_insta']['sell'] < 0 else ESC.green if i['id'] == best else ''
+        esc3 = ESC.gray if i['profit_insta']['buy'] < 0 else ESC.green if i['id'] == best else ''
+        esc4 = ESC.gray if i['profit_insta']['sell'] < 0 else ESC.green if i['id'] == best else ''
         lines[linecount]+=(f'{' '*8}{' '*(max_id_len-7)}{'profits -+- order: '}{esc1}{i['profit_order']['buy']:>{max_number_len}}{ESC.clear} | {esc2}{i['profit_order']['sell']:<{max_number_len}}'+ESC.clear)      ;linecount+=1
-        lines[linecount]+=(f'{' '*8}{' '*(max_id_len+1)}{' `- insta: '}{esc1}{i['profit_insta']['buy']:>{max_number_len}}{ESC.clear} | {esc2}{i['profit_insta']['sell']:<{max_number_len}}'+ESC.clear)              ;linecount+=1
+        lines[linecount]+=(f'{' '*8}{' '*(max_id_len+1)}{' `- insta: '}{esc3}{i['profit_insta']['buy']:>{max_number_len}}{ESC.clear} | {esc4x}{i['profit_insta']['sell']:<{max_number_len}}'+ESC.clear)              ;linecount+=1
 print(' +')
 
 cl()
