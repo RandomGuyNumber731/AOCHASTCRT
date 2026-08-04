@@ -64,22 +64,22 @@ def check_size():
 # products
 #   '- =item_id=
 #       '- sell_summary[n]
-#       |   '- amount
-#       |   '- pricePerUnit
+#       |   :- amount
+#       |   :- pricePerUnit
 #       |   '- orders
-#       :
-#       '- buy_summary[n]
-#       |   '- amount
-#       |   '- pricePerUnit
+#       |
+#       :- buy_summary[n]
+#       |   :- amount
+#       |   :- pricePerUnit
 #       |   '- orders
 #       :
 #       '- quick_status
-#           '- sellPrice
-#           '- sellVolume
-#           '- sellOrders
+#           :- sellPrice
+#           :- sellVolume
+#           :- sellOrders
 #           |
-#           '- buyPrice
-#           '- buyVolume
+#           :- buyPrice
+#           :- buyVolume
 #           '- buyOrders
 #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
@@ -88,8 +88,8 @@ def check_size():
 #      (respecting the data structure that is returned by the 'callcofl(item_id)' function)
 # 
 # [n]  (can sometimes be empty)
-#   '- count
-#   '- startingBid
+#   :- count
+#   :- startingBid
 #   '- (some other not-so-useful data)
 #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
@@ -109,7 +109,7 @@ def callhp(IsTest: bool=False):
 
 def callcofl(target: str, IsTest: bool=False):
     IsThere=os.path.isfile(wherecofl)
-    if target==None: raise Exception('no value provided')                                                                                   # thanks coflnet for existing and making checking auction alot easier
+    if target==None: raise Exception('no value provided')                       # thanks coflnet for existing and making checking auction alot easier
     i=f'https://sky.coflnet.com/api/auctions/tag/{target}/active/bin'
     if not IsTest: j=requests.get(i); l=j.json()
     else:

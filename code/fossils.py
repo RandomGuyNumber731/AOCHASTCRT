@@ -17,7 +17,7 @@ x25=['HELIX', 'CLAW_FOSSIL', 'GLACITE_SHARD']       # i was slightly surprised t
 x25ah=['FOSSIL_THE_FISH', 'PREHISTORIC_EGG']
 
 dust='ESSENCE_FOSSIL'
-dust_price={'sell':data[dust]['quick_status']['sellPrice'], 'buy':float(f'{data[dust]['quick_status']['buyPrice']:.2f}')}
+dust_price={'sell':data[dust]['quick_status']['sellPrice'], 'buy':fcut(data[dust]['quick_status']['buyPrice'])}
 
 printn('organizing hypixel api data...')
 total = []
@@ -45,7 +45,7 @@ for i in x25ah:
     for j in x:
         tmp += j['startingBid']
         tmpmin.append(j['startingBid'])
-        i_avg = tmp/len(x)
+        i_avg = fcut(tmp/len(x))
     i_min = min(tmpmin)
 
     total.append({'id':i, 'min':i_min, 'avg':i_avg, 'val':25})
@@ -136,7 +136,7 @@ for i in total:
         esc3 = ESC.gray if i['profit_insta']['buy'] < 0 else ESC.green if i['id'] == best else ''
         esc4 = ESC.gray if i['profit_insta']['sell'] < 0 else ESC.green if i['id'] == best else ''
         lines[linecount]+=(f'{' '*8}{' '*(max_id_len-7)}{'profits -+- order: '}{esc1}{i['profit_order']['buy']:>{max_number_len}}{ESC.clear} | {esc2}{i['profit_order']['sell']:<{max_number_len}}'+ESC.clear)      ;linecount+=1
-        lines[linecount]+=(f'{' '*8}{' '*(max_id_len+1)}{' `- insta: '}{esc3}{i['profit_insta']['buy']:>{max_number_len}}{ESC.clear} | {esc4x}{i['profit_insta']['sell']:<{max_number_len}}'+ESC.clear)              ;linecount+=1
+        lines[linecount]+=(f'{' '*8}{' '*(max_id_len+1)}{' `- insta: '}{esc3}{i['profit_insta']['buy']:>{max_number_len}}{ESC.clear} | {esc4}{i['profit_insta']['sell']:<{max_number_len}}'+ESC.clear)              ;linecount+=1
 print(' +')
 
 cl()
